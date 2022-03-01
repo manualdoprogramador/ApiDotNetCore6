@@ -11,4 +11,10 @@
     <ProjectReference Include="..\MP.ApiDotNet6.Domain\MP.ApiDotNet6.Domain.csproj" />
     <ProjectReference Include="..\MP.ApiDotNet6.Application\MP.ApiDotNet6.Application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
 </Project>
