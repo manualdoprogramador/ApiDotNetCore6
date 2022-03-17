@@ -1,4 +1,5 @@
-﻿using MP.ApiDotNet6.Infra.IoC;
+﻿using System.Text.Json.Serialization;
+using MP.ApiDotNet6.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddService(builder.Configuration);
+builder.Services.AddMvc().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
+
 // Configure the HTTP request pipeline.
 var app = builder.Build();  
 if (app.Environment.IsDevelopment())

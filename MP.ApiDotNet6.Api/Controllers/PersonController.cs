@@ -20,10 +20,31 @@ namespace MP.ApiDotNet6.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] PersonDTO personDTO)
+        public async Task<ActionResult> PostAsync([FromBody] PersonDTO personDTO)
         {
             var result = await _personService.CreateAsync(personDTO);
             if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAsync()
+        {
+            var result = await _personService.GetAsync();
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult> GetIdAsync(int id)
+        {
+            var result = await _personService.GetByIdAsync(id);
+            if (result.IsSuccess)   
                 return Ok(result);
 
             return BadRequest(result);
