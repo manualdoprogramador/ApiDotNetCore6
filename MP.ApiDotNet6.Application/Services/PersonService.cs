@@ -43,6 +43,34 @@ namespace MP.ApiDotNet6.Application.Services
             var person = await _personRepository.GetByIdAsync(id);
             return ResultService.Ok(_mapper.Map<PersonDTO>(person));
         }
+
+        public async Task<ResultService> RemoveAsync(int id)
+        {
+            var person = await _personRepository.GetByIdAsync(id);
+            if (person == null)
+                return ResultService.Fail("Pessoa não encontrada!");
+
+            await _personRepository.DeleteAsync(person);
+            return ResultService.Ok($"Pessoa do id:{id} deletada");
+        }
+
+        public async Task<ResultService> UpdateAsync(PersonDTO personDTO)
+        {
+            if (personDTO == null)
+                return ResultService.Fail<PersonDTO>("Objeto deve ser informado");
+
+            var validation = new PersonDTOValidator().Validate(personDTO);
+            if (!validation.IsValid)
+                return ResultService.RequestError<PersonDTO>("Problema de validacao!", validation);
+
+            var person = await _personRepository.GetByIdAsync(personDTO.Id);
+            if (person == null)
+                return ResultService.Fail("Pessoa não encontrada!");
+
+            person = _mapper.Map<PersonDTO, Person>(personDTO, person);            
+            await _personRepository.EditAsync(person);
+            return ResultService.Ok("Pessoa editada");
+        }
     }
 }
 
