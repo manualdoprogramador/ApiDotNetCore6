@@ -17,11 +17,9 @@ namespace MP.ApiDotNet6.Application.DTOs.Product.Validations
 				.NotNull()
 				.WithMessage("Name deve ser informado!");
 
-			RuleFor(x => x.Price)
-				.NotEmpty()
-				.NotNull()
+			RuleFor(x => x.Price)				
 				.GreaterThan(0)
-				.WithMessage("Price deve ser informado ou maior que zero!");
+				.WithMessage("Price deve ser informado e maior que zero!");
 		}
 	}
 }
