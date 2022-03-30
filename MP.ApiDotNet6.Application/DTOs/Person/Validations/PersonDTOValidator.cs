@@ -15,12 +15,12 @@ namespace MP.ApiDotNet6.Application.DTOs.Person.Validations
 			RuleFor(x => x.Name)
 				.NotEmpty()
 				.NotNull()
-				.WithMessage("Document deve ser informado!");
+				.WithMessage("Name deve ser informado!");
 
 			RuleFor(x => x.Phone)
 				.NotEmpty()
 				.NotNull()
-				.WithMessage("Document deve ser informado!");
+				.WithMessage("Phone deve ser informado!");
 		}
 	}
 }

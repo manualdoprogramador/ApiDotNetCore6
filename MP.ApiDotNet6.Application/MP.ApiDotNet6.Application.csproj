@@ -18,6 +18,8 @@
     <None Remove="Services\Interfaces\" />
     <None Remove="AutoMapper" />
     <None Remove="Mappings\" />
+    <None Remove="DTOs\Product\" />
+    <None Remove="DTOs\Product\Validations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\" />
@@ -26,6 +28,8 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Mappings\" />
+    <Folder Include="DTOs\Product\" />
+    <Folder Include="DTOs\Product\Validations\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />

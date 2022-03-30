@@ -9,7 +9,7 @@ namespace MP.ApiDotNet6.Infra.Data.Repositories
 	public class ProductRepository : IProductRepository
 	{
 		private readonly ApplicationDbContext _db;
-        public ProductRepository(ApplicationDbContext db = null)
+        public ProductRepository(ApplicationDbContext db)
         {
             _db = db;
         }
