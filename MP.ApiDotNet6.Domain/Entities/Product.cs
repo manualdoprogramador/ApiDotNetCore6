@@ -31,7 +31,7 @@ namespace MP.ApiDotNet6.Domain.Entities
 
             Name = name;
             Price = price;
-            CodErp = CodErp;
+            CodErp = codErp;
         }        
     }
 }

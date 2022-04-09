@@ -28,6 +28,48 @@ namespace MP.ApiDotNet6.Api.Controllers
 
             return BadRequest(result);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAsync()
+        {
+            var result = await _productService.GetAsync();
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult> GetIdAsync(int id)
+        {
+            var result = await _productService.GetByIdAsync(id);
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateAsync([FromBody] ProductDTO productDTO)
+        {
+            var result = await _productService.UpdateAsync(productDTO);
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            var result = await _productService.RemoveAsync(id);
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
     }
 }
 
