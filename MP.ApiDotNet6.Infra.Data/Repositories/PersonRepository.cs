@@ -44,6 +44,11 @@ namespace MP.ApiDotNet6.Infra.Data.Repositories
         {
             return await _db.People.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<int> GetIdByDocumentAsync(string document)
+        {
+            return (await _db.People.FirstOrDefaultAsync(x => x.Document == document))?.Id ?? 0;
+        }
     }
 }
 

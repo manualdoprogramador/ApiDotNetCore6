@@ -2,6 +2,7 @@
 using AutoMapper;
 using MP.ApiDotNet6.Application.DTOs.Person;
 using MP.ApiDotNet6.Application.DTOs.Product;
+using MP.ApiDotNet6.Application.DTOs.Purchase;
 using MP.ApiDotNet6.Domain.Entities;
 
 namespace MP.ApiDotNet6.Application.Mappings
@@ -12,6 +13,18 @@ namespace MP.ApiDotNet6.Application.Mappings
 		{
 			CreateMap<Person, PersonDTO>();
 			CreateMap<Product, ProductDTO>();
+			CreateMap<Purchase, PurchaseDetailDTO>()
+			.ConstructUsing((model, context) =>
+			{
+				var dto = new PurchaseDetailDTO
+				{
+					Person = model.Person.Name,
+					Id = model.Id,
+					Product = model.Product.Name,
+					Date = model.Date
+				};
+				return dto;
+			});
 		}
 	}
 }

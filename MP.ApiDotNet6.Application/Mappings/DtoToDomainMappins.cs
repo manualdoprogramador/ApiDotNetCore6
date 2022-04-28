@@ -2,6 +2,7 @@
 using AutoMapper;
 using MP.ApiDotNet6.Application.DTOs.Person;
 using MP.ApiDotNet6.Application.DTOs.Product;
+using MP.ApiDotNet6.Application.DTOs.Purchase;
 using MP.ApiDotNet6.Domain.Entities;
 
 namespace MP.ApiDotNet6.Application.Mappings
@@ -11,7 +12,7 @@ namespace MP.ApiDotNet6.Application.Mappings
 		public DtoToDomainMappins()
 		{
 			CreateMap<PersonDTO, Person>();
-			CreateMap<ProductDTO, Product>();
+			CreateMap<ProductDTO, Product>();		
 		}
 	}
 }

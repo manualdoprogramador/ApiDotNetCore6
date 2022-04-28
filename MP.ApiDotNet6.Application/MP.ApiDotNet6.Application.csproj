@@ -20,6 +20,8 @@
     <None Remove="Mappings\" />
     <None Remove="DTOs\Product\" />
     <None Remove="DTOs\Product\Validations\" />
+    <None Remove="DTOs\Purchase\" />
+    <None Remove="DTOs\Purchase\Validations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\" />
@@ -30,6 +32,8 @@
     <Folder Include="Mappings\" />
     <Folder Include="DTOs\Product\" />
     <Folder Include="DTOs\Product\Validations\" />
+    <Folder Include="DTOs\Purchase\" />
+    <Folder Include="DTOs\Purchase\Validations\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />
