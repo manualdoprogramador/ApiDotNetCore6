@@ -22,21 +22,22 @@ namespace MP.ApiDotNet6.Application.Services
             _personRepository = personRepository;
         }
 
-        public async Task<ResultService<int>> CreateAsync(PurchaseDTO purchaseDTO)
+        public async Task<ResultService<PurchaseDTO>> CreateAsync(PurchaseDTO purchaseDTO)
         {
             if(purchaseDTO == null)
-                return ResultService.Fail<int>("Objeto deve ser informado");
+                return ResultService.Fail<PurchaseDTO>("Objeto deve ser informado");
 
             var result = new PurchaseDTOValidator().Validate(purchaseDTO);
             if (!result.IsValid)
-                return ResultService.RequestError<int>("Problema de validacao!", result);
+                return ResultService.RequestError<PurchaseDTO>("Problema de validacao!", result);
 
             var productId = await _productRepository.GetIdByCodErpAsync(purchaseDTO.CodErp);            
             var personId = await _personRepository.GetIdByDocumentAsync(purchaseDTO.Document);                            
             var purchase = new Purchase(productId, personId);
 
             var data = await _purchaseRepository.CreateAsync(purchase);
-            return ResultService.Ok<int>(data.Id);
+            purchaseDTO.Id = data.Id;
+            return ResultService.Ok<PurchaseDTO>(purchaseDTO);
         }
     }
 }

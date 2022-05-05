@@ -5,7 +5,7 @@ namespace MP.ApiDotNet6.Application.Services.Interfaces
 {
 	public interface IPurchaseService
 	{
-		Task<ResultService<int>> CreateAsync(PurchaseDTO purchaseDTO);
+		Task<ResultService<PurchaseDTO>> CreateAsync(PurchaseDTO purchaseDTO);
 	}
 }
 

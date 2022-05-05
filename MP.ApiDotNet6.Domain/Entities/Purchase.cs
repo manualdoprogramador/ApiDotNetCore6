@@ -15,7 +15,7 @@ namespace MP.ApiDotNet6.Domain.Entities
 
         public Purchase(int id, int productId, int personId)
 		{
-            DomainValidationException.When(id < 0, "Id deve ser informado!");
+            DomainValidationException.When(id <= 0, "Id deve ser informado!");
             Id = id;
             Validation(productId, personId);    
         }
@@ -27,8 +27,8 @@ namespace MP.ApiDotNet6.Domain.Entities
 
         private void Validation(int productId, int personId)
         {
-            DomainValidationException.When(productId < 0, "Id produto deve ser maior que zero");
-            DomainValidationException.When(personId < 0, "Id pessoa deve ser maior que zero");
+            DomainValidationException.When(productId <= 0, "Id produto deve ser maior que zero");
+            DomainValidationException.When(personId <= 0, "Id pessoa deve ser maior que zero");
 
             ProductId = productId;
             PersonId = personId;
