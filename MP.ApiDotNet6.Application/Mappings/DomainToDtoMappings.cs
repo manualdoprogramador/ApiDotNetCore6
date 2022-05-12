@@ -14,7 +14,9 @@ namespace MP.ApiDotNet6.Application.Mappings
 			CreateMap<Person, PersonDTO>();
 			CreateMap<Product, ProductDTO>();
 			CreateMap<Purchase, PurchaseDetailDTO>()
-			.ConstructUsing((model, context) =>
+			.ForMember(x => x.Product, opt => opt.Ignore())
+			.ForMember(x => x.Person, opt => opt.Ignore())
+			.ConstructUsing((model,context) =>
 			{
 				var dto = new PurchaseDetailDTO
 				{

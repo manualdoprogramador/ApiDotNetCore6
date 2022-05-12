@@ -65,7 +65,10 @@ namespace MP.ApiDotNet6.Infra.Data.Repositories
 
         public async Task<ICollection<Purchase>> GetAllAsync()
         {
-            return await _db.Purchases.ToListAsync();
+            return await _db.Purchases
+                            .Include(x => x.Product)
+                            .Include(x => x.Person)
+                            .ToListAsync();
         }
     }
 }
