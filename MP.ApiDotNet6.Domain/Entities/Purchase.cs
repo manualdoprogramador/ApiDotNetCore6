@@ -25,6 +25,13 @@ namespace MP.ApiDotNet6.Domain.Entities
             Validation(productId, personId);
         }
 
+        public void Edit(int id, int productId, int personId)
+        {
+            DomainValidationException.When(id <= 0, "Id deve ser informado!");
+            Id = id;
+            Validation(productId, personId);
+        }
+
         private void Validation(int productId, int personId)
         {
             DomainValidationException.When(productId <= 0, "Id produto deve ser maior que zero");

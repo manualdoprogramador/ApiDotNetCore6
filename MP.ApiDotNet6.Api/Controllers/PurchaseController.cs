@@ -39,7 +39,7 @@ namespace MP.ApiDotNet6.Api.Controllers
             {
                 var result = ResultService.Fail(ex.Message);
                 return BadRequest(result);
-            }            
+            }
         }
 
         [HttpGet]
@@ -57,6 +57,36 @@ namespace MP.ApiDotNet6.Api.Controllers
         public async Task<ActionResult> GetIdAsync(int id)
         {
             var result = await _purchaseService.GetByIdAsync(id);
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateAsync([FromBody] PurchaseDTO purchaseDTO)
+        {
+            try
+            {
+                var result = await _purchaseService.UpdateAsync(purchaseDTO);
+                if (result.IsSuccess)
+                    return Ok(result);
+
+                return BadRequest(result);
+            }
+            catch (DomainValidationException ex)
+            {
+                var result = ResultService.Fail(ex.Message);
+                return BadRequest(result);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult> RemoveAsync(int id)
+        {
+            var result = await _purchaseService.RemoveAsync(id);
             if (result.IsSuccess)
                 return Ok(result);
 
