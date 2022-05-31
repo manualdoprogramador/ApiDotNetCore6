@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MP.ApiDotNet6.Application.DTOs;
 using MP.ApiDotNet6.Application.DTOs.Person;
 using MP.ApiDotNet6.Application.Services.Interfaces;
 
@@ -33,6 +34,17 @@ namespace MP.ApiDotNet6.Api.Controllers
         public async Task<ActionResult> GetAsync()
         {
             var result = await _personService.GetAsync();
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("paged")]
+        public async Task<ActionResult> GetPagedAsync([FromQuery] PageRequestDTO<PersonDTO> pageRequest)
+        {
+            var result = await _personService.GetPaged(pageRequest);
             if (result.IsSuccess)
                 return Ok(result);
 

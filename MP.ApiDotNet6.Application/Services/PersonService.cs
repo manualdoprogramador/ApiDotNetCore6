@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using MP.ApiDotNet6.Application.DTOs;
 using MP.ApiDotNet6.Application.DTOs.Person;
 using MP.ApiDotNet6.Application.DTOs.Person.Validations;
 using MP.ApiDotNet6.Application.Services.Interfaces;
@@ -42,6 +43,14 @@ namespace MP.ApiDotNet6.Application.Services
         {
             var person = await _personRepository.GetByIdAsync(id);
             return ResultService.Ok(_mapper.Map<PersonDTO>(person));
+        }
+
+        public async Task<ResultService<PageResponseDTO<PersonDTO>>> GetPaged(PageRequestDTO<PersonDTO> pageRequestDTO)
+        {
+            var peoplePaged = await _personRepository.GetPagedAsync(pageRequestDTO);
+            var result = new PageResponseDTO<PersonDTO>(peoplePaged.TotalRegisters, _mapper.Map<List<PersonDTO>>(peoplePaged.Data));
+            return ResultService.Ok(result);
+
         }
 
         public async Task<ResultService> RemoveAsync(int id)
