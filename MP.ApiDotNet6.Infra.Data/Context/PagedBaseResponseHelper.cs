@@ -7,7 +7,7 @@ namespace MP.ApiDotNet6.Infra.Data.Context
 {
     public static class PagedBaseResponseHelper
     {
-        public static async Task<TResponse> GetResponseAsync<TResponse, T>(IQueryable<T> query, PageBaseRequest request)
+        public static async Task<TResponse> GetResponseAsync<TResponse, T>(IQueryable<T> query, PagedBaseRequest request)
             where TResponse : PagedBaseResponse<T>, new()
         {
             var response = new TResponse();

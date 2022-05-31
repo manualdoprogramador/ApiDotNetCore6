@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using MP.ApiDotNet6.Application.DTOs;
 using MP.ApiDotNet6.Application.DTOs.Person;
 using MP.ApiDotNet6.Application.Services.Interfaces;
+using MP.ApiDotNet6.Domain.FiltersDb;
 
 namespace MP.ApiDotNet6.Api.Controllers
 {
@@ -42,7 +43,7 @@ namespace MP.ApiDotNet6.Api.Controllers
 
         [HttpGet]
         [Route("paged")]
-        public async Task<ActionResult> GetPagedAsync([FromQuery] PageRequestDTO<PersonDTO> pageRequest)
+        public async Task<ActionResult> GetPagedAsync([FromQuery] PersonFilterDb pageRequest)
         {
             var result = await _personService.GetPaged(pageRequest);
             if (result.IsSuccess)

@@ -1,9 +1,9 @@
 ﻿using System;
 namespace MP.ApiDotNet6.Application.DTOs
 {
-	public class PageResponseDTO<T>
+	public class PagedResponseDTO<T>
 	{
-        public PageResponseDTO(int totalRegisters, List<T> data)
+        public PagedResponseDTO(int totalRegisters, List<T> data)
         {
             TotalRegisters = totalRegisters;
             Data = data;
