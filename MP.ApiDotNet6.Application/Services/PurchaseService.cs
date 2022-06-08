@@ -8,36 +8,55 @@ using MP.ApiDotNet6.Domain.Repositories;
 
 namespace MP.ApiDotNet6.Application.Services
 {
-	public class PurchaseService : IPurchaseService
-	{
+    public class PurchaseService : IPurchaseService
+    {
         private readonly IMapper _mapper;
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly IProductRepository _productRepository;
         private readonly IPersonRepository _personRepository;
-        public PurchaseService(IMapper mapper, IPurchaseRepository purchaseRepository, IProductRepository productRepository, IPersonRepository personRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public PurchaseService(IMapper mapper, IPurchaseRepository purchaseRepository, IProductRepository productRepository, IPersonRepository personRepository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _purchaseRepository = purchaseRepository;
             _productRepository = productRepository;
             _personRepository = personRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ResultService<PurchaseDTO>> CreateAsync(PurchaseDTO purchaseDTO)
         {
-            if(purchaseDTO == null)
+            if (purchaseDTO == null)
                 return ResultService.Fail<PurchaseDTO>("Objeto deve ser informado");
 
             var result = new PurchaseDTOValidator().Validate(purchaseDTO);
             if (!result.IsValid)
                 return ResultService.RequestError<PurchaseDTO>("Problema de validacao!", result);
 
-            var productId = await _productRepository.GetIdByCodErpAsync(purchaseDTO.CodErp);            
-            var personId = await _personRepository.GetIdByDocumentAsync(purchaseDTO.Document);                            
-            var purchase = new Purchase(productId, personId);
+            try
+            {
+                await _unitOfWork.BeginTransaction();
+                var productId = await _productRepository.GetIdByCodErpAsync(purchaseDTO.CodErp);
+                if (productId == 0)
+                {
+                    var product = new Product(purchaseDTO.ProductName, purchaseDTO.CodErp, purchaseDTO.Price ?? 0);
+                    await _productRepository.CreateAsync(product);
+                    productId = product.Id;
+                }
 
-            var data = await _purchaseRepository.CreateAsync(purchase);
-            purchaseDTO.Id = data.Id;
-            return ResultService.Ok<PurchaseDTO>(purchaseDTO);
+                var personId = await _personRepository.GetIdByDocumentAsync(purchaseDTO.Document);
+                var purchase = new Purchase(productId, personId);
+
+                var data = await _purchaseRepository.CreateAsync(purchase);
+                purchaseDTO.Id = data.Id;
+                await _unitOfWork.Commit();
+                return ResultService.Ok<PurchaseDTO>(purchaseDTO);
+            }
+            catch(Exception ex)
+            {
+                await _unitOfWork.Rollback();
+                return ResultService.Fail<PurchaseDTO>($"Erro: {ex.Message}");
+            }
         }
 
         public async Task<ResultService<ICollection<PurchaseDetailDTO>>> GetAsync()
@@ -52,7 +71,7 @@ namespace MP.ApiDotNet6.Application.Services
             if (purchase == null)
                 return ResultService.Fail<PurchaseDetailDTO>("Compra não encontrada");
 
-            return ResultService.Ok(_mapper.Map<Purchase,PurchaseDetailDTO>(purchase));
+            return ResultService.Ok(_mapper.Map<Purchase, PurchaseDetailDTO>(purchase));
         }
 
         public async Task<ResultService> RemoveAsync(int id)
