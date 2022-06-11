@@ -8,8 +8,9 @@ namespace MP.ApiDotNet6.Infra.Data.Context
 {
     public class UnitOfWork : IUnitOfWork
     {
-		private readonly ApplicationDbContext _db;
-		private IDbContextTransaction _transaction;
+        private readonly ApplicationDbContext _db;
+        private IDbContextTransaction _transaction;
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
