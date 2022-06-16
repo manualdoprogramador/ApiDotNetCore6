@@ -22,6 +22,8 @@
     <None Remove="DTOs\Product\Validations\" />
     <None Remove="DTOs\Purchase\" />
     <None Remove="DTOs\Purchase\Validations\" />
+    <None Remove="DTOs\User\" />
+    <None Remove="DTOs\User\Validations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\" />
@@ -34,6 +36,8 @@
     <Folder Include="DTOs\Product\Validations\" />
     <Folder Include="DTOs\Purchase\" />
     <Folder Include="DTOs\Purchase\Validations\" />
+    <Folder Include="DTOs\User\" />
+    <Folder Include="DTOs\User\Validations\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />

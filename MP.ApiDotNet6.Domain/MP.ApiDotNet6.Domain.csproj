@@ -11,11 +11,13 @@
     <None Remove="Validations\" />
     <None Remove="Repositories\" />
     <None Remove="FiltersDb\" />
+    <None Remove="Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Validations\" />
     <Folder Include="Repositories\" />
     <Folder Include="FiltersDb\" />
+    <Folder Include="Authentication\" />
   </ItemGroup>
 </Project>
