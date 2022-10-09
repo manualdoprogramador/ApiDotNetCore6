@@ -29,6 +29,10 @@ namespace MP.ApiDotNet6.Infra.Data.Maps
             builder.HasMany(c => c.Purchases)
                 .WithOne(p => p.Person)
                 .HasForeignKey(x => x.PersonId);
+
+            builder.HasMany(c => c.PersonImages)
+                    .WithOne(p=> p.Person) 
+                    .HasForeignKey(x => x.PersonId);   
         }
     }
 }

@@ -10,11 +10,13 @@ namespace MP.ApiDotNet6.Domain.Entities
         public string Name { get; private set; }
         public string Phone { get; private set; }
         public ICollection<Purchase> Purchases { get; private set; }
+        public ICollection<PersonImage> PersonImages {get; private set; }
 
         public Person(string document, string name, string phone)
         {
             Validation(document, name, phone);
             Purchases = new List<Purchase>();
+            PersonImages = new List<PersonImage>();
         }
 
         public Person(int id,string document, string name, string phone)
@@ -23,6 +25,7 @@ namespace MP.ApiDotNet6.Domain.Entities
             Id = id;
             Validation(document, name, phone);
             Purchases = new List<Purchase>();
+            PersonImages = new List<PersonImage>();
         }
 
         private void Validation(string document, string name, string phone)
