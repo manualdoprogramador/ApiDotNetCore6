@@ -17,9 +17,21 @@ namespace MP.ApiDotNet6.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync([FromBody] PersonImageDTO personImageDTO)
+        [Route("base64")]
+        public async Task<ActionResult> CreateImageBase64Async([FromBody] PersonImageDTO personImageDTO)
         {
             var result = await _personImageService.CreateImageBase64Async(personImageDTO);
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpPost]
+        [Route("pathimage")]
+        public async Task<ActionResult> CreateImageAsync([FromBody] PersonImageDTO personImageDTO)
+        {
+            var result = await _personImageService.CreateImageAsync(personImageDTO);
             if (result.IsSuccess)
                 return Ok(result);
 
