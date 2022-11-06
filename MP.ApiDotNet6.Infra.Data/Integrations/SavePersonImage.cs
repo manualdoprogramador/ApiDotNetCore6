@@ -7,7 +7,7 @@ namespace MP.ApiDotNet6.Infra.Data.Integrations
         private readonly string _filePath;
         public SavePersonImage()
         {
-            _filePath  = "/Users/gutofilipe93/Documents/CANAL YOUTUBE/API Robusta .NET CORE 6/ApiDotNetCore6/Imagens";
+            _filePath  = "/Users/gutofilipe93/Desktop";
         }
         public string Save(string imageBase64)
         {   
