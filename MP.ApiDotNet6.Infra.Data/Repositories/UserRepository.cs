@@ -15,9 +15,11 @@ namespace MP.ApiDotNet6.Infra.Data.Repositories
             _db = db;
         }
 
-        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string password)
+        public async Task<User?> GetUserByEmailAndPasswordAsync(string email, string password)
         {
-            return await _db.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+            return await _db.Users
+                            .Include(x => x.UserPermissions).ThenInclude(x => x.Permission)
+                            .FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
         }
     }
 }

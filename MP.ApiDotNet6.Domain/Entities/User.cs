@@ -8,6 +8,7 @@ namespace MP.ApiDotNet6.Domain.Entities
         public User(string email, string password)
         {
             Validation(email, password);
+            UserPermissions = new List<UserPermission>();
         }
 
         public User(int id, string email, string password)
@@ -15,11 +16,13 @@ namespace MP.ApiDotNet6.Domain.Entities
             DomainValidationException.When(id < 0, "Id deve ser informado!");
             Id = id;
             Validation(email, password);
+            UserPermissions = new List<UserPermission>(); 
         }
 
         public int Id { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public ICollection<UserPermission> UserPermissions { get; set; }
 
         private void Validation(string email, string password)
         {

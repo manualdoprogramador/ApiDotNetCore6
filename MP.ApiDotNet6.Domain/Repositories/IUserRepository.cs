@@ -5,7 +5,7 @@ namespace MP.ApiDotNet6.Domain.Repositories
 {
 	public interface IUserRepository
 	{
-		Task<User> GetUserByEmailAndPasswordAsync(string email, string password);
+		Task<User?> GetUserByEmailAndPasswordAsync(string email, string password);
 	}
 }
 

@@ -22,6 +22,10 @@ namespace MP.ApiDotNet6.Infra.Data.Maps
 
             builder.Property(c => c.Password)
                 .HasColumnName("senha");
+
+            builder.HasMany(c => c.UserPermissions)
+                .WithOne(p=> p.User) 
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

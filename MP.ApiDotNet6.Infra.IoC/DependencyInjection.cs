@@ -27,7 +27,7 @@ namespace MP.ApiDotNet6.Infra.IoC
 			services.AddScoped<ITokenGenerator, TokenGenerator>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IPersonImageRepository, PersonImageRepository>();
-			services.AddScoped<ISavePersonImage,SavePersonImage>();
+			services.AddScoped<ISavePersonImage,SavePersonImage>();			
 			return services;
         }
 
