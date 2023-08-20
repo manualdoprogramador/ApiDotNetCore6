@@ -18,7 +18,7 @@ namespace MP.ApiDotNet6.Domain.Entities
 
         public Product(int id, string name, string codErp, decimal price)
         {
-            DomainValidationException.When(id < 0, "Id deve ser informado!");
+            DomainValidationException.When(id <= 0, "Id deve ser informado!");
             Id = id;
             Validation(name, codErp, price);
         }
