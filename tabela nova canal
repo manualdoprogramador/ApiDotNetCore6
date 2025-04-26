@@ -35,3 +35,5 @@ VALUES('Edita de pessoa','EditaPessoa');
 
 INSERT INTO PERMISSAOUSUARIO (IDUSUARIO,IDPERMISSAO)
 VALUES(1,1);
+
+-- teste
